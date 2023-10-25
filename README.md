@@ -6,3 +6,6 @@
 
 - utworzono gałąź `new-feature`
 - rozwiązano konflikt
+- scalono gałąź `new-feature` do `main`
+- wykonano `reword`, `squash` i zmianę kolejności commitów
+- użyto `stash` dodając tę i powyższą linijkę do schowka

@@ -1,5 +1,8 @@
 import java.math.BigDecimal;
 
+/**
+ * This simple program calculates factorial and square root.
+ */
 public class Program {
 
     private static double squareRoot(double x) {
