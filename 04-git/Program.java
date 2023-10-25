@@ -14,8 +14,8 @@ public class Program {
     }
 
     /**
-     * Application entry point.
-     * @param args command line arguments, one integer expected
+     * Application entry point. Usage: Program <!|sqrt> <number>
+     * @param args command line arguments
      */
     public static void main(String args[]) {
         System.out.println(factorial(Integer.parseInt(args[0])));
