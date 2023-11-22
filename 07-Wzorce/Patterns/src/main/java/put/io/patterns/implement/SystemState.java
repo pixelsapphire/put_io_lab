@@ -5,15 +5,14 @@ public class SystemState {
     // CPU load in percentage
     private double cpu = 0.0;
 
-    // CPU temperature in C
+    // CPU temperature in degrees Celsius
     private double cpuTemp = 0.0;
 
-    // available memory in Mega Bytes
+    // available memory in megabytes
     private double memory = 0.0;
 
     // number of USB devices
     private int usbDevices = 0;
-
 
     public SystemState(double cpu, double cpuTemp, double memory, int usbDevices) {
         this.cpu = cpu;
@@ -30,11 +29,9 @@ public class SystemState {
         return memory;
     }
 
-
     public int getUsbDevices() {
         return usbDevices;
     }
-
 
     public double getCpuTemp() {
         return cpuTemp;

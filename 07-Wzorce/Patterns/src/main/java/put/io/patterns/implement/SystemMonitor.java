@@ -6,45 +6,41 @@ import oshi.software.os.OperatingSystem;
 
 public class SystemMonitor {
 
-    private SystemInfo si;
-
-    private HardwareAbstractionLayer hal;
-
-    private OperatingSystem os;
-
+    private final SystemInfo si;
+    private final HardwareAbstractionLayer hal;
+    private final OperatingSystem os;
     private SystemState lastSystemState = null;
 
-    public SystemMonitor(){
+    public SystemMonitor() {
         si = new SystemInfo();
         hal = si.getHardware();
         os = si.getOperatingSystem();
-
     }
 
-    public void probe(){
+    public void probe() {
 
         // Get current state of the system resources
         double cpuLoad = hal.getProcessor().getSystemLoadAverage(1)[0];
         double cpuTemp = hal.getSensors().getCpuTemperature();
-        double memory = hal.getMemory().getAvailable() / 1000000;
+        double memory = hal.getMemory().getAvailable() / 1000000.0;
         int usbDevices = hal.getUsbDevices(false).size();
 
         lastSystemState = new SystemState(cpuLoad, cpuTemp, memory, usbDevices);
 
         // Print information to the console
         System.out.println("============================================");
-        System.out.println(String.format("CPU Load: %2.2f%%", lastSystemState.getCpu()));
-        System.out.println(String.format("CPU temperature: %.2f C", lastSystemState.getCpuTemp()));
-        System.out.println(String.format("Available memory: %.2f MB", lastSystemState.getAvailableMemory()));
-        System.out.println(String.format("USB devices: %d", lastSystemState.getUsbDevices()));
+        System.out.printf("CPU Load: %2.2f%%%n", lastSystemState.getCpu());
+        System.out.printf("CPU temperature: %.2f C%n", lastSystemState.getCpuTemp());
+        System.out.printf("Available memory: %.2f MB%n", lastSystemState.getAvailableMemory());
+        System.out.printf("USB devices: %d%n", lastSystemState.getUsbDevices());
 
         // Run garbage collector when out of memory
-        if (lastSystemState.getAvailableMemory() < 200.00){
+        if (lastSystemState.getAvailableMemory() < 200.00) {
             System.out.println("> Running garbage collector...");
         }
 
-        // Increase CPU cooling if the temperature is to high
-        if (lastSystemState.getCpuTemp() > 60.00){
+        // Increase CPU cooling if the temperature is too high
+        if (lastSystemState.getCpuTemp() > 60.00) {
             System.out.println("> Increasing cooling of the CPU...");
         }
     }

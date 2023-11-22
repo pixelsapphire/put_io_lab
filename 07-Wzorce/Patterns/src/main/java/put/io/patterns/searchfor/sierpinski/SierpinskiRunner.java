@@ -1,24 +1,11 @@
 package put.io.patterns.searchfor.sierpinski;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import put.io.patterns.searchfor.CustomRunner;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import put.io.patterns.searchfor.CustomRunner;
 
 /**
  * Runner for organized GUI elements. Draws nice Sierpiński carpet.
@@ -26,22 +13,19 @@ import put.io.patterns.searchfor.CustomRunner;
  * Required command line parameters: depth of recursion
  */
 public class SierpinskiRunner extends CustomRunner {
+
+    private final JLabel addressLabel = new JLabel("---");
+    private final JButton button = new JButton("RECOLOR!");
+
     public static void main(String[] args) {
         checkAndRun(args, 1, "carpetDepth", new SierpinskiRunner());
     }
 
     @Override
-    public void run(String[] params) throws Exception {
+    public void run(String[] params) {
         final int level = Integer.parseInt(params[0]);
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                constructGUI(level);
-            }
-        });
+        SwingUtilities.invokeLater(() -> constructGUI(level));
     }
-
-    private JLabel addressLabel = new JLabel("---");
-    private JButton button = new JButton("RECOLOR!");
 
     private void constructGUI(int level) {
         JFrame frame = new JFrame("SwingApplication");
@@ -64,12 +48,7 @@ public class SierpinskiRunner extends CustomRunner {
         // here we define what should happen after the button is pressed
         // for carpet buttons see createBasicElems() below
 
-        button.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                pane.repaint();
-            }
-        });
+        button.addActionListener(e -> pane.repaint());
 
         return pane;
     }
@@ -89,7 +68,6 @@ public class SierpinskiRunner extends CustomRunner {
         return pane;
     }
 
-    @SuppressWarnings("serial")
     private Component createBasicElem(String address) {
         JComponent comp = new JButton() {
             @Override
@@ -106,10 +84,12 @@ public class SierpinskiRunner extends CustomRunner {
         // define what happens when some mouse event happens over the component
         comp.addMouseListener(new MouseListener() {
 
-            public void mouseExited(MouseEvent e) {
+            // we don't need those events
+            public void mouseClicked(MouseEvent e) { /* unused */ }
 
-                addressLabel.setText("---");
-            }
+            public void mousePressed(MouseEvent e) { /* unused */ }
+
+            public void mouseReleased(MouseEvent e) { /* unused */ }
 
             public void mouseEntered(MouseEvent e) {
                 JComponent c = (JComponent) e.getSource();
@@ -119,12 +99,10 @@ public class SierpinskiRunner extends CustomRunner {
                 }
             }
 
-            // we don't need those events
-            public void mouseClicked(MouseEvent e) { /* unused */ }
+            public void mouseExited(MouseEvent e) {
 
-            public void mouseReleased(MouseEvent e) { /* unused */ }
-
-            public void mousePressed(MouseEvent e) { /* unused */ }
+                addressLabel.setText("---");
+            }
         });
         return comp;
     }
