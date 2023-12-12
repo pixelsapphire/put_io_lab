@@ -13,7 +13,7 @@ public class Calculator {
      * @return product of the arguments
      */
     public int multiply(int x, int y) {
-        return x - y;
+        return x * y;
     }
 
     /**
