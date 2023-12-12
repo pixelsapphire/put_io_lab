@@ -1,9 +1,6 @@
 package put.io.testing.audiobooks;
 
 public class Customer {
-    public enum LoyaltyLevel {
-        STANDARD, SILVER, GOLD
-    }
 
     private String name;
     private LoyaltyLevel loyaltyLevel;
@@ -25,5 +22,9 @@ public class Customer {
 
     public boolean isSubscriber() {
         return isSubscriber;
+    }
+
+    public enum LoyaltyLevel {
+        STANDARD, SILVER, GOLD
     }
 }

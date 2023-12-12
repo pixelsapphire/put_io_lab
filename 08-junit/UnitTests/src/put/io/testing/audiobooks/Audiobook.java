@@ -1,6 +1,7 @@
 package put.io.testing.audiobooks;
 
 public class Audiobook {
+
     private String title;
     private double startingPrice;
 
